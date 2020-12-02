@@ -11,9 +11,10 @@ html_request = requests.get("http://www.wyrmfoe.com/tag/giftrank2/page/1/", head
 
 #convert to BeautifulSoup obj
 bs_object = bs(html_request.content, 'html.parser')
-#print(c.prettify().encode("utf-8"))
+#print(bs_object.prettify().encode("utf-8"))
+#print(bs_object)
 
-# h2 = c.find_all("h2")
+# h2 = bs_object.find_all("h2")
 
 # for i in range(len(h2)):
 #     giftname = h2[i].get_text().encode("utf-8")
@@ -38,10 +39,7 @@ all_p = bs_object.find_all("p")
 
 #Iterate through all text lines except the first text and assemble gifts accordingly
 i = 1
-#hasUpdatedSys = False
-#giftFound = False
 while i < len(all_p)-1:
-
     #print("index: ", i)
 
     #Grab text from current <p>
@@ -118,9 +116,9 @@ print("h2: {0} | giftarr: {1}\n".format(len(all_h2), len(giftarr)))
 # print("Camp: ", giftarr[12].camp)
 # print("Desc: ", giftarr[12].desc)
 
-# if len(all_h2) == len(giftarr):
-#     for i in range(len(giftarr)):
-#         giftarr[i].name = all_h2[i].get_text().encode("utf-8")
+if len(all_h2) == len(giftarr):
+    for i in range(len(giftarr)):
+        giftarr[i].name = all_h2[i].get_text().encode("utf-8")
 
 #     print("NumGifts: ", len(giftarr))
 #     for gift in giftarr:
@@ -130,6 +128,20 @@ print("h2: {0} | giftarr: {1}\n".format(len(all_h2), len(giftarr)))
 
 if len(all_h2) == len(giftarr):
     print("Successfully scraped gift list of {0} gifts.".format(len(giftarr)))
+    print("Attempting to name gifts...")
+    for i in range(len(giftarr)):
+        giftarr[i].name = all_h2[i].get_text().encode("utf-8")
+    print("Gifts successfully named.")
+    print("Double checking...")
+
+    check = True
+    for i in range(len(giftarr)):
+        if giftarr[i].name == "N/A":
+            print("Error detected at index {0}. Gift name: {1}".format(i, all_h2[i]))
+            check = False
+    if check == True:
+        print("All gifts named successfully.")
+        
 else:
     print("Error: Names and GiftArray len not matching")
 # print("NumNames: ", len(all_h2))
