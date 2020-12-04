@@ -1,0 +1,9 @@
+12/3/2020:
+- Cleaned main module of dead code and (most) extraneous comments
+- Compartmentalized 'gift' object to new module 'gift.py'
+- Gave defaults to existing 'gift' object attributes
+- Added new attributes to 'gift' object
+- Added methods to 'gift' object:
+	- 'print_all_gifts' #Prints all gift attributes for every gift found in a given array of gifts in human readable format
+	- 'find_tribe' #Separates and prints list of tribes derived from rank attribute using string split(" / ")
+- Fixed formatting on internal 'gift' object string attributes
